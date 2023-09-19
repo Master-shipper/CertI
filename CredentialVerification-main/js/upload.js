@@ -25,9 +25,8 @@ async function uploadDocument() {
     }
 
     // Specify your contract address and ABI
-    const contractAddress = 'YOUR_CONTRACT_ADDRESS'; // Replace with your contract address
+    const contractAddress = 'YOUR_CONTRACT_ADDRESS'; 
     const contractAbi = [
-        // Include your contract's ABI here
     ];
 
     // Create a new web3 instance

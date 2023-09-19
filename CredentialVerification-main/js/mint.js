@@ -1,3 +1,22 @@
+// Connect to Metamask-enabled Ethereum provider
+window.addEventListener('load', async () => {
+    if (typeof ethereum === 'undefined') {
+        console.error('Metamask or similar Ethereum wallet not detected.');
+        return;
+    }
+    // Create a Web3 instance
+    const web3 = new Web3(ethereum);
+
+    try {
+        // Request account access if needed
+        await ethereum.enable();
+    } catch (error) {
+        // User denied account access...
+        console.error('User denied account access');
+    }
+    // Ethereum provider is now connected to the user's Metamask wallet
+});
+
 // Function to handle minting a certificate as an NFT
 async function mintCertificateAsNFT() {
     // Get the certificate ID input element
@@ -8,7 +27,7 @@ async function mintCertificateAsNFT() {
 
     // Check if Web3 provider (MetaMask) is available
     if (typeof ethereum === 'undefined') {
-        console.error('MetaMask or similar Ethereum wallet not detected.');
+        console.error('Metamask or similar Ethereum wallet not detected.');
         return;
     }
 
@@ -20,10 +39,8 @@ async function mintCertificateAsNFT() {
         await ethereum.enable();
 
         // Your contract interaction code
-        const contractAddress = 'YOUR_CONTRACT_ADDRESS'; // Replace with your contract address
+        const contractAddress = 'YOUR_CONTRACT_ADDRESS'; 
         const contractAbi = [
-            // Include your contract's ABI here
-            // Example:
             {
                 constant: false,
                 inputs: [

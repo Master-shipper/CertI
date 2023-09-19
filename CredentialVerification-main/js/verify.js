@@ -1,10 +1,10 @@
 // Function to handle document verification
-async function verifyDocument() {
-    // Get the document hash input element
-    const documentHashInput = document.getElementById('documentHash');
+async function verifyCertificateAsNFT() {
+    // Get the certificate ID input element
+    const certificateIdInput = document.getElementById('certificateId');
 
-    // Get the value entered by the user (the document hash)
-    const documentHash = documentHashInput.value;
+    // Get the value entered by the user (the certificate ID)
+    const certificateId = certificateIdInput.value;
 
     // Check if Web3 provider (MetaMask) is available
     if (typeof ethereum === 'undefined') {
@@ -19,18 +19,35 @@ async function verifyDocument() {
         // Request account access if needed
         await ethereum.enable();
 
-        // Your verification code
-        const contractAddress = 'YOUR_CONTRACT_ADDRESS'; // Replace with your contract address
+        // Your contract interaction code
+        const contractAddress = 'YOUR_CONTRACT_ADDRESS'; 
         const contractAbi = [
-            // Include your contract's ABI here
-            // Add the ABI of your 'verifyCertificate' function here
-        ];
+            {
+                constant: true,
+                inputs: [
+                    {
+                        name: 'certificateId',
+                        type: 'uint256',
+                    },
+                ],
+                name: 'verifyCertificate',
+                outputs: [
+                    {
+                        name: '',
+                        type: 'bool',
+                    },
+                ],
+                payable: false,
+                stateMutability: 'view',
+                type: 'function',
+            },
+        ];        
 
         // Create a contract instance
         const contract = new web3.eth.Contract(contractAbi, contractAddress);
 
         // Call the 'verifyCertificate' function on the contract
-        const isVerified = await contract.methods.verifyCertificate(documentHash).call();
+        const isVerified = await contract.methods.verifyCertificate(certificateId).call();
 
         // Display the verification result
         const verificationResult = document.querySelector('.verification-result .status');
@@ -53,5 +70,5 @@ async function verifyDocument() {
 // Event listener for the form submission
 document.querySelector('form').addEventListener('submit', function (e) {
     e.preventDefault(); // Prevent the default form submission behavior
-    verifyDocument(); // Call the verifyDocument function
+    verifyCertificateAsNFT(); // Call the verifyCertificateAsNFT function
 });
